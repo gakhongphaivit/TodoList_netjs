@@ -1,11 +1,14 @@
-import { IsString, IsNotEmpty, MinLength, IsOptional } from 'class-validator';
+import { IsNotEmpty, IsString, IsIn } from 'class-validator';
+
 export class CreateTodoDto {
-    @IsString()
-    @IsNotEmpty()
-    @MinLength(3)
-    title: string;
-    
-    @IsOptional()
-    @IsString()
-    content?: string;
+  @IsNotEmpty()
+  @IsString()
+  title: string;
+
+  @IsNotEmpty()
+  @IsString()
+  content: string;
+
+  @IsIn(['pending', 'in-progress', 'done'])
+  status: string = 'pending';
 }

@@ -1,10 +1,10 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Types } from 'mongoose';
 
 export type TodoDocument = Todo & Document;
 
 @Schema({ timestamps: true })
-export class Todo {
+export class Todo extends Document {
   @Prop({ required: true })
   title: string;
 
@@ -13,6 +13,9 @@ export class Todo {
 
   @Prop({ default: 'pending', enum: ['pending', 'in-progress', 'done'] })
   status: string;
+
+  @Prop({ type: Types.ObjectId, ref: 'User', required: true })
+  userId: Types.ObjectId;
 
   createdAt: Date;
   updatedAt: Date;
